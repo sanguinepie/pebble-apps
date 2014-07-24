@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link type="text/css" href="css/main.css" rel="stylesheet" />
+    <title>Miami Herald</title>
+  </head>
+  <body>
+    <ul>
+      <li id="alertHeader">Alerts</li>
+    </ul>
+    <div id="alert"></div>
+
+    <ul>
+      <li>Current Conditions</li>
+    </ul>
+    <div id="current"></div>
+
+    <ul>
+      <li>Forecast</li>
+    </ul>
+    <div id="forecast"></div>
+
+    <script id="alert-template" type="text/html">
+      <% _.each(alerts, function(data) {%>
+        <ul class='alertTemplate'>
+          <li><%= data.type %></li>
+          <li><%= data.description %></li>
+          <li><%= data.message %></li>
+          <li><%= data.significance %></li>
+        </ul>
+      <% });%>
+    </script>
+
+    <script id="current-template" type="text/html">
+      <ul>
+        <li><%= current_observation.local_time_rfc822 %></li>
+        <li>Weather for <%= current_observation.display_location.full %></li>
+        <li><%= current_observation.temperature_string %></li>
+      </ul>
+    </script>
+
+    <script id="forecast-template" type="text/html">
+      <% _.each(forecast.txt_forecast.forecastday, function(data) { %>
+        <ul>
+          <li><%= data.title %></li>
+          <li><img src="<%= data.icon_url %>"/></li>
+        </ul>
+      <% }) %>
+    </script>
+
+    <script id="tropical-template" type="text/html"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.4/handlebars.amd.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
+    <script src="js/utils/utils.js"></script>
+    <script src="js/models/miamiModel.js"></script>
+    <script src="js/views/alertView.js"></script>
+    <script src="js/views/currentView.js"></script>
+    <script src="js/views/forecastView.js"></script>
+    <script src="js/views/tropicalView.js"></script>
+    <script src="js/views/collectionView.js"></script>
+    <script src="js/collections/miamiCollection.js"></script>
+    <script>
+      $(function() {
+        new weather.MiamiCollectionView();
+        });
+      </script>
+    </body> 
+  </html>
