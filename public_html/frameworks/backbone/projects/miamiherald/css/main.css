@@ -1,0 +1,8 @@
+Ul {
+  list-style: none;
+}
+
+ul li {
+  line-height: 20px;
+  min-height: 20px;
+}
